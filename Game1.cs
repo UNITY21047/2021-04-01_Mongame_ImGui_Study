@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using MonoGame.ImGui;
+using ImGuiNET;
 
 namespace _2021_04_01_Mongame_ImGui_Study
 {
@@ -8,6 +10,8 @@ namespace _2021_04_01_Mongame_ImGui_Study
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+
+        public ImGUIRenderer GuiRenderer; //This is the ImGuiRenderer
 
         public Game1()
         {
@@ -18,9 +22,9 @@ namespace _2021_04_01_Mongame_ImGui_Study
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
-            base.Initialize();
+          // TODO: Add your initialization logic here
+          GuiRenderer = new ImGUIRenderer(this).Initialize().RebuildFontAtlas();
+          base.Initialize();
         }
 
         protected override void LoadContent()
@@ -47,6 +51,11 @@ namespace _2021_04_01_Mongame_ImGui_Study
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);
+
+            GuiRenderer.BeginLayout(gameTime);
+            //Insert Your ImGui code
+            ImGui.Text("Hello World!");
+            GuiRenderer.EndLayout();
         }
     }
 }
